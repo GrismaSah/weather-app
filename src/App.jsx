@@ -1,10 +1,14 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import WeatherCard from "./weathercard";
 
 function App() {
+  const [city, setCity] = useState("");
+
+  function handleSearch() {
+    console.log("Searching for:", city);
+  }
+
   return (
     <div className="weather-app">
       <h1>Weather App</h1>
@@ -12,17 +16,14 @@ function App() {
       <input
         type="text"
         placeholder="Enter city"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
       />
 
-      <button>Search</button>
-
-      <div className="weather-card">
-        <h2>Bangalore</h2>
-        <h3>28°C</h3>
-        <p>Partly Cloudy</p>
-        <p>Humidity: 65%</p>
-        <p>Wind: 12 km/h</p>
-      </div>
+      <button onClick={handleSearch}>
+        Search
+      </button>
+      <WeatherCard />
     </div>
   );
 }
