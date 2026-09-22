@@ -1,22 +1,18 @@
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+
 const express = require("express");
+const logger = require("./middleware/logger");
+const weatherRoutes = require("./routes/weatherRoutes");
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Weather Backend is running!");
-});
+app.use(express.json());
 
-app.get("/api/weather", (req, res) => {
-  const city = req.query.city;
+app.use(logger);
 
-  res.json({
-    city: city,
-    temperature: 28,
-    condition: "Partly Cloudy",
-    humidity: 65,
-    wind: 12
-  });
-});
+app.use("/api/weather", weatherRoutes);
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
